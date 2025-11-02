@@ -1,14 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylessheet" href="styles.css"/>
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Winnipeg park and open space explorer</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    
-    
+  <header>
+    <h1>Winnipeg park and open space explorer</h1>
+    <p class="lead">Enter a date to search for parks and open spaces.</p>
+  </header>
+
+  <main>
+    <form id="searchForm" aria-label="Search Winnipeg cycling dataset">
+      <label for="dateInput">Date (YYYY-MM-DD)</label>
+      <input id="dateInput" name="date" type="date" required />
+      <button id="searchBtn" type="submit">Search</button>
+      <div id="status" role="status" aria-live="polite"></div>
+    </form>
+
+    <section id="resultsSection" aria-live="polite" hidden>
+      <h2>Results</h2>
+      <div id="resultsInfo" class="muted"></div>
+      <div id="tableWrapper" class="table-wrapper" tabindex="0"></div>
+    </section>
+  </main>
+
+  <script src="script.js/script>
 </body>
-<script src="script.js"></script>
 </html>
