@@ -6,6 +6,14 @@ JavaScript Async/ Await Assignment_5 */
 const searchBtn = document.getElementById('searchBtn');
 const container = document.getElementById('resultsInfo')
 
+const getJSON = function(url, errorMsg = 'Error fetching data') {
+    fetch(url).then(response => { if (!response.ok) 
+        throw new Error(`${errorMsg} (Status: ${response.status})`);
+      
+        return response.json();
+    });
+};
+
 async function fetchParkOpenSpace(commonName) {
   // Build the API URL dynamically from the form input
   const apiUrl = 'https://data.winnipeg.ca/resource/d3jk-hb6j.json?' +
@@ -15,25 +23,8 @@ async function fetchParkOpenSpace(commonName) {
 
   // Encode the URL to handle spaces and special characters
   const encodedURL = encodeURI(apiUrl);
-
-  try {
-    // Fetch the data from the Open Data API
-    const response = await fetch(encodedURL);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    // Parse JSON response
-    const data = await response.json();
-    console.log(data); 
-    return data;
-  } catch (error) {
-    console.error('Error fetching tree data:', error);
-  }
+    getJSON(encodedURL, `Error fetching data.`)
 }
-
-fetchParkOpenSpace().then((parks) => console.log(parks));
 
 searchBtn.addEventListener("click", async () => {
     try {
@@ -47,9 +38,5 @@ searchBtn.addEventListener("click", async () => {
     } catch (error) {
         container.innerHTML = "Error loading data.";
     }
-// duplicate/undefined listener removed
-    getParkOpenSpace();
 });
 
-const request = fetch('https://data.winnipeg.ca/api/v3/views/iibp-28fx/query.json')
-console.log(request)
