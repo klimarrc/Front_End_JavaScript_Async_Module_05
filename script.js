@@ -1,91 +1,70 @@
 /* Kailine Lima 
 October 29, 2025.
 JavaScript Async/ Await Assignment_5 */
-
-
-// Make the promise 
-function simulateAsyncOperation() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve("Data fetched after waiting.");
-        }, 2000);
-    });
-}
-console.log("Before async operation");
-simulateAsyncOperation()
-  .then((result) => console.log( result))
-  .catch((error) => console.error( error));
-
-//
+// 
+ 
 async function fetchSchoolSpeedLimits(keyword) {
-    try{
-    // Build the API URL dynamically from the form input
-    const fieldName = 'key_work';  
-    const kwEscaped = keyword.trim().replace(/'/g, "\\'");
-    
-    const baseUrl   = `https://data.winnipeg.ca/resource/k56t-9dvi.json`;
-    const params = [
-    `$where=lower(${fieldName}) like lower('%${kwEscaped}%')`,
-    `$limit=100`
-    ];
-    const url = `${baseUrl}?${params.join('&')}`;
-    const encodedUrl = encodeURI(url);
+    try {
+        word = (keyword ?? '').trim();
+        if (!word) return [];
 
+        const base = 'https://data.winnipeg.ca/resource/k56t-9dvi.json';
+        const url = `${base}?$q=${encodeURIComponent(word)}&$limit=20`;
 
-    // Encode the URL to handle spaces and special characters
-    
+        document.getElementById('status').textContent = 'Loading...';
+        console.log('API URL:', url);
 
-    const response = await fetch(encodedUrl);
-    if (!response.ok) {
-        throw new Error(`Request failed ${response.status}`);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP: ${response.status}`);
+
+        const data = await response.json();
+        document.getElementById('status').textContent = `Found ${data.length} records.`;
+        return data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('status').textContent = 'Error fetching data.';
+        return [];
+      }
     }
-    // Parse JSON
-    const data = await response.json();
-    console.log(data);
-    } catch (error){
-        console.error(`Error fetching data:`, error);
-       return [];
 
+    function renderTable(data) {
+      const container = document.getElementById('results');
+      if (!data.length) {
+        container.innerHTML = '<p>No results found.</p>';
+        return;
+      }
+
+      const rows = data.map(row => `
+        <tr>
+          <td>${row.street_name ?? ''}</td>
+          <td>${row.school ?? ''}</td>
+          <td>${row.speed_limit ?? ''}</td>
+          <td>${row.effective_days ?? ''}</td>
+          <td>${row.effective_time ?? ''}</td>
+          <td><a href="${row.legislation_link ?? '#'}" target="_blank">Link</a></td>
+        </tr>
+      `).join('');
+
+      container.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Street Name</th>
+              <th>School</th>
+              <th>Speed Limit</th>
+              <th>Days</th>
+              <th>Time</th>
+              <th>Legislation</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
     }
-}
 
-function displayData(data) {
-  const container = document.getElementById('tableContainer');
-  
-  if (!data){
-    container.innerHTML = '<p>No data found.</p>'
-    return;
-  }
-
-// Extract columns name from data
-const columns = data.meta.views.columns.map(col => col.name);
-
-//Create table header
-let html = '<table><thead><tbody>';
-columns.forEach(col =>{
-    html += `<th>${col}<th>`;
-});
-html += '</th></thead><tbody>';
-
-// Limit columns 
-data.data.slice(0, 5).forEach (row => {
-    html =+ '<tr>';
-    row.slice(0, 3).forEach(cell => {
-        html += `<td>${cell}</td>`;
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const keyword = document.getElementById('keyword').value;
+      const data = await fetchSchoolSpeedLimits(keyword);
+      renderTable(data);
     });
-    html += '</tr>';
-});
-
-html += '</tbody></table>'
-container.innerHTML = html;
-}
-
-
-document.getElementById('searchForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const keyword = document.getElementById('keyword').value;
-  await fetchSchoolSpeedLimits(keyword);
-});
-
-// Automatically load data on page load
-window.addEventListener('DOMContentLoaded', () => fetchSchoolSpeedLimits());
