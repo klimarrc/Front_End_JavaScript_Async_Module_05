@@ -55,17 +55,17 @@ the DOM element instead of its string value.
 
 **Fix:**
  `word = (keyword ?? '').trim();`
--First, this line safely cleans and normalizes whatever was passed into the
+- First, this line safely cleans and normalizes whatever was passed into the
  function.
 
         `if (!word) return [];`
--Then if there is no search text, stop the function and return an empty list.
+- Then if there is no search text, stop the function and return an empty list.
 
         `const base = 'https://data.winnipeg.ca/resource/k56t-9dvi.json;'`
--The dataset ID (k56t-9dvi) uniquely identifies which data I am accessing.
+- The dataset ID (k56t-9dvi) uniquely identifies which data I am accessing.
 
         `const url = `${base}?$q=${encodeURIComponent(word)}&$limit=20`;`
--Finally, I applied $q is a full-text search parameter.It searches across multiple
+- Finally, I applied $q is a full-text search parameter.It searches across multiple
  text fields in the dataset for whatever word contains.
 
 ## 4. Conclusion
