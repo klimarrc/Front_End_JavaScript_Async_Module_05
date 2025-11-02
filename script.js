@@ -1,7 +1,8 @@
 /* Kailine Lima 
 October 29, 2025.
-JavaScript Async/ Await Assignment_5 */
-// 
+JavaScript Async/ Await Assignment_5
+ */
+
  
 async function fetchSchoolSpeedLimits(keyword) {
     try {
@@ -20,7 +21,7 @@ async function fetchSchoolSpeedLimits(keyword) {
         const data = await response.json();
         document.getElementById('status').textContent = `Found ${data.length} records.`;
         return data;
-      } catch (error) {
+    } catch (error) {
         console.error('Error fetching data:', error);
         document.getElementById('status').textContent = 'Error fetching data.';
         return [];
