@@ -2,9 +2,6 @@ tt/* Kailine Lima
 October 29, 2025.
 JavaScript Async/ Await Assignment_5 */
 
-const searchBtn = document.getElementById('searchBtn');
-const container = document.getElementById('resultsInfo');
-
 
 // Make the promise 
 function simulateAsyncOperation() {

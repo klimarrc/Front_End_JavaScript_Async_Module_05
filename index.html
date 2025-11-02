@@ -3,31 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Winnipeg park and open space explorer</title>
+  <title>School Speed Limits</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <header>
-        <h1>Winnipeg Tree Inventory — Top 100 Largest Matches</h1>
-        <p class="subtitle">Search the City of Winnipeg tree inventory for the 100 largest trees whose common name includes your search term.</p>
+        <h1>School Speed Limits</h1>
+        <p>Explore the school speed limits in Winnipeg. You can filter the data by entering a keyword.</p>
     </header>
 
     <main>
-        <form id="searchForm" aria-label="Search trees by common name">
-        <label for="commonName">Common name (partial allowed)</label>
-        <div class="controls">
-            <input id="commonName" name="commonName" type="search" placeholder="e.g. Ash, Maple, Elm" required />
-            <button id="searchBtn" type="submit">Search</button>
-        </div>
+        <form id="searchForm">
+            <label for="keyword">Enter keyword to filter (optional):</label>
+            <input type="text" id="keyword" placeholder="Type something...">
+            <button type="submit">Fetch Data</button>
         </form>
 
-        <div id="status" role="status" aria-live="polite"></div>
-
-        <section id="results" aria-live="polite">
-        <!-- Table inserted here -->
-        </section>
+        <div id="status"></div>
+        <div id="tableContainer"></div>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>
