@@ -1,4 +1,4 @@
-tt/* Kailine Lima 
+/* Kailine Lima 
 October 29, 2025.
 JavaScript Async/ Await Assignment_5 */
 
@@ -17,36 +17,37 @@ simulateAsyncOperation()
   .catch((error) => console.error( error));
 
 //
-async function fetchSchoolSpeedLimits(keyword = '') {
+async function fetchSchoolSpeedLimits(keyword) {
     try{
     // Build the API URL dynamically from the form input
-    let apiUrl = `https://data.winnipeg.ca/api/v3/views/k56t-9dvi/query.json` +
-                 `$where=lower(text) like lower('%${keyword}%')&`
-                 `$limit=100`;
+    const fieldName = 'key_work';  
+    const kwEscaped = keyword.trim().replace(/'/g, "\\'");
+    
+    const baseUrl   = `https://data.winnipeg.ca/resource/k56t-9dvi.json`;
+    const params = [
+    `$where=lower(${fieldName}) like lower('%${kwEscaped}%')`,
+    `$limit=100`
+    ];
+    const url = `${baseUrl}?${params.join('&')}`;
+    const encodedUrl = encodeURI(url);
 
 
     // Encode the URL to handle spaces and special characters
-    const encodedURL = encodeURI(apiUrl);
-    console.log(encodedURL);
+    
 
-    const response = await fetch(encodedURL);
+    const response = await fetch(encodedUrl);
     if (!response.ok) {
-    throw new Error(`Request failed (${response.status})`);
+        throw new Error(`Request failed ${response.status}`);
     }
     // Parse JSON
     const data = await response.json();
-    
-    //Display the data
-    displayData(data);
-    setStatus(`School Speed Limit ${data.data} records successufully`, 'ok')
-
+    console.log(data);
     } catch (error){
         console.error(`Error fetching data:`, error);
-        setStatus('Failed to load data', 'error');
+       return [];
 
     }
 }
-    
 
 function displayData(data) {
   const container = document.getElementById('tableContainer');
@@ -83,8 +84,8 @@ container.innerHTML = html;
 document.getElementById('searchForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const keyword = document.getElementById('keyword').value;
-  await fetchWinnipegData(keyword);
+  await fetchSchoolSpeedLimits(keyword);
 });
 
 // Automatically load data on page load
-window.addEventListener('DOMContentLoaded', () => fetchWinnipegData());
+window.addEventListener('DOMContentLoaded', () => fetchSchoolSpeedLimits());

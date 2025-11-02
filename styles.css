@@ -1,89 +1,66 @@
 
-
-:root{
-  --max-width: 1000px;
-  --accent: #0b6fa4;
-  --muted: #666;
-  --bg: #f7fbfd;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8fafc;
+  color: #111;
+  margin: 0;
+  padding: 20px;
 }
 
-* { 
-    box-sizing: border-box; 
-}
-html,body { 
-    height:100%;
-    margin:0;
-    font-family: system-ui, 
-    -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
-    background:white; 
-    color:#122; }
-header { 
-    padding:1.25rem; 
-    border-bottom: 1px solid #e1eef5; 
-    background: lightgray; 
-}
-h1 { 
-    margin:0 0 .25rem 0; 
-    font-size:1.25rem; 
-}
-.subtitle { 
-    margin:0; 
-    color:gray; 
-    font-size:0.95rem; }
-
-main { 
-    max-width: var(--max-width); 
-    margin:1.25rem auto; 
-    padding:0 1rem; 
+header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-form { 
-    margin-bottom:1rem; 
-    background:#fff; 
-    padding:1rem; 
-    border-radius:8px; 
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03); 
-}
-.controls { 
-    display:flex; 
-    gap:0.5rem; 
-    align-items:center; 
-    margin-top:0.5rem; 
-}
-input[type="search"] { 
-    flex:1; 
-    padding:0.5rem 0.6rem; 
-    border:1px solid #d2e8f1; 
-    border-radius:6px; 
-    font-size:1rem; 
-}
-button { 
-    background:rgb(67, 67, 238); 
-    color:#fff; 
-    border:none; 
-    padding:0.55rem 0.9rem; 
-    border-radius:6px; 
-    cursor:pointer; 
-    font-weight:600; 
-}
-button:active { 
-    transform: translateY(1px); 
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-#status { 
-    margin: 0.5rem 0; 
-    color:rgb(189, 181, 181); 
-    min-height:1.25rem; 
+input {
+  padding: 8px;
+  width: 250px;
 }
 
-section#results { 
-    margin-top:1rem; 
+button {
+  padding: 8px 16px;
+  background-color: #0074d9;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
+button:hover {
+  background-color: #005fa3;
+}
 
+#status.ok {
+  color: green;
+  text-align: center;
+}
 
-@media (max-width:720px){
-  .controls { flex-direction:column; align-items:stretch; }
-  button { width:100%; }
-  th, td { font-size:0.85rem; padding:0.5rem; }
+#status.error {
+  color: red;
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background: white;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+th {
+  background: #e2e8f0;
 }
