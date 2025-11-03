@@ -1,6 +1,7 @@
 # Reflection
 
 ## Author
+
 **Kailine Lima**
 
 ### Overview
@@ -40,4 +41,4 @@ However, I spend too much time finding the correct API that works. The major lin
 didn't work and didn't give the data correctly. Then I struggled with $Where, I 
 I tried to apply via the link, but regardless of what I did, I couldn't succeed.
 In conclusion, this is my first time I worked with JavaScript async and I enjoy 
-doing that. 
+doing that.
