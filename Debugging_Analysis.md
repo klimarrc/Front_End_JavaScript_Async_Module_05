@@ -65,8 +65,8 @@ the DOM element instead of its string value.
 - The dataset ID (k56t-9dvi) uniquely identifies which data I am accessing.
 
         `const url = `${base}?$q=${encodeURIComponent(word)}&$limit=20`;`
-- Finally, I applied $q is a full-text search parameter.It searches across multiple
- text fields in the dataset for whatever word contains.
+- Finally, I applied $q is a full-text search parameter.It searches across 
+multiple text fields in the dataset for whatever word contains.
 
 ## 4. Conclusion
 
@@ -74,5 +74,5 @@ Using the debugger, I was able to:
 - Builds valid, encoded URLs.
 - Ignores empty searches.
 - Prevents crashes due to undefined variables.
-- This debugging process confirmed that careful input handling and valid 
+- This debugging process confirmed that careful input handling and valid. 
 query syntax are essential for stable and accurate API requests.
